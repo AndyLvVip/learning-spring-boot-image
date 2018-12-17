@@ -1,0 +1,9 @@
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8671:/eureka/
+server:
+  port: 9000
+spring:
+  application:
+    name: image

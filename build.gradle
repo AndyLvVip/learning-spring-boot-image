@@ -1,0 +1,59 @@
+buildscript {
+	ext {
+		springBootVersion = '2.1.1.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'aspire.demo'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+	maven { url "https://repo.spring.io/milestone" }
+}
+
+ext['springCloudVersion'] = 'Greenwich.RC1'
+
+dependencies {
+	implementation('org.springframework.boot:spring-boot-starter-data-mongodb-reactive')
+	implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
+	implementation('org.springframework.boot:spring-boot-starter-webflux') {
+		exclude module: 'spring-boot-starter-reactor-netty'
+	}
+	implementation('org.springframework.boot:spring-boot-starter-tomcat')
+	implementation('org.springframework.cloud:spring-cloud-starter-stream-rabbit')
+	implementation('org.springframework.cloud:spring-cloud-stream-reactive')
+	implementation('org.springframework.boot:spring-boot-configuration-processor')
+	implementation('org.springframework.boot:spring-boot-devtools')
+	implementation('org.springframework.boot:spring-boot-starter-actuator')
+	implementation('org.projectlombok:lombok')
+	implementation('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+	implementation('org.springframework.cloud:spring-cloud-starter-netflix-ribbon')
+	implementation('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	testImplementation('io.projectreactor:reactor-test')
+	testImplementation('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
+	testImplementation('org.seleniumhq.selenium:selenium-chrome-driver')
+	testImplementation('org.seleniumhq.selenium:selenium-firefox-driver')
+	testImplementation('org.seleniumhq.selenium:selenium-safari-driver')
+	testImplementation('org.seleniumhq.selenium:htmlunit-driver')
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
